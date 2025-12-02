@@ -60,6 +60,7 @@ const userLogin = async (req, res) => {
   }
 };
 
+// User logout
 const logoutUser = async (req, res) => {
   try {
     const { email } = req.body;
