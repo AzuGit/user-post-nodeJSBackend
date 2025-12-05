@@ -23,7 +23,7 @@ const createUser = async (req, res) => {
     });
 
     //generate token
-    const token = generateToken(user);
+    const token = generateToken(user, res);
 
     return res.status(201).json({
       message: "User created successfully",
@@ -57,7 +57,7 @@ const userLogin = async (req, res) => {
     }
 
     //generate token
-    const token = generateToken(user);
+    const token = generateToken(user, res);
 
     //login successful
 
@@ -77,6 +77,10 @@ const logoutUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     //logout successful
+    res.cookie("token", "", {
+      httpOnly: true,
+      expires: new Date(0),
+    });
     return res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     return res.status(500).json({ message: "Server error" });
